@@ -1,52 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Profile Card UI</title>
+  <title>Profile Card + Slider</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
 
     * {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
 
     body {
-      background: url("Background.jpg") no-repeat center center fixed;
-      background-size: cover;
+      background: #f0f0f0;
     }
 
+    /* ==== PROFILE CARD ==== */
     .main {
-      width: 100%;
-      padding: 60px 0;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      padding: 60px 0;
     }
 
     .profile-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       max-width: 400px;
       width: 100%;
       border-radius: 25px;
       padding: 30px;
-      border: 1px solid #ffffff40;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-      background: white;
+      background: #fff;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      text-align: center;
     }
 
     .image {
-      position: relative;
       height: 150px;
       width: 150px;
+      margin: auto;
     }
 
-    .image .profile-pic {
+    .profile-pic {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -54,61 +49,78 @@
       box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     }
 
-    .data {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .data h2 {
+      font-size: 30px;
       margin-top: 15px;
     }
 
-    .data h2 {
-      font-size: 33px;
-      font-weight: 600;
-    }
-
-    span {
+    .data span {
       font-size: 18px;
+      color: #777;
     }
 
     .row {
       display: flex;
-      align-items: center;
+      justify-content: center;
+      gap: 20px;
       margin-top: 30px;
     }
 
-    .row .info {
-      text-align: center;
-      padding: 0 20px;
+    .info h3 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .info span {
+      font-size: 14px;
+      color: #555;
     }
 
     .buttons {
-      display: flex;
-      align-items: center;
       margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
-    .buttons .btn {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 20px;
+    .btn {
       padding: 8px 25px;
+      background: linear-gradient(to left,#33ccff,#ff99cc);
+      color: white;
       border-radius: 25px;
-      font-size: 18px;
-      white-space: nowrap;
-      background: linear-gradient(to left, #33ccff 0%, #ff99cc 100%);
+      font-size: 16px;
+      text-decoration: none;
+      transition: 0.3s;
     }
 
-    .buttons .btn:hover {
-      box-shadow: inset 0 5px 20px rgba(0,0,0,0.4);
+    .btn:hover {
+      box-shadow: inset 0 5px 20px rgba(0,0,0,0.2);
     }
 
-    /* Slider style */
+    /* ==== SLIDER ==== */
+    .slider-section {
+      background-color: #f8f9fa;
+      padding: 60px 0;
+    }
+
+    .slider-title {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+
+    .slider-container {
+      position: relative;
+      max-width: 840px;
+      margin: auto;
+      overflow: hidden;
+    }
+
     #slider {
       display: flex;
-      overflow: hidden;
       gap: 20px;
       scroll-behavior: smooth;
-      width: 840px;
+      overflow-x: auto;
     }
 
     .slide-card {
@@ -117,11 +129,13 @@
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       overflow: hidden;
+      transition: 0.3s;
+      flex-shrink: 0;
     }
 
     .slide-card img {
       width: 100%;
-      height: auto;
+      display: block;
     }
 
     .slide-card div {
@@ -129,8 +143,9 @@
     }
 
     .slide-card h3 {
-      margin-bottom: 10px;
       font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
 
     .slide-card p {
@@ -140,27 +155,48 @@
 
     .slider-btn {
       position: absolute;
-      top: 40%;
-      z-index: 2;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
       background: white;
       border: none;
       font-size: 24px;
-      cursor: pointer;
-      padding: 8px;
       border-radius: 50%;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
     }
 
-    .slider-container {
-      position: relative;
-      max-width: 840px;
-      margin: 0 auto;
+    .slider-btn:hover {
+      background: #eee;
+    }
+
+    .btn-left {
+      left: -20px;
+    }
+
+    .btn-right {
+      right: -20px;
+    }
+
+    @media (max-width: 860px) {
+      .slider-container {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+      .btn-left, .btn-right {
+        display: none !important;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Profile Section -->
+  <!-- PROFILE -->
   <section class="main">
     <div class="profile-card">
       <div class="image">
@@ -171,18 +207,9 @@
         <span>Developer & Designer</span>
       </div>
       <div class="row">
-        <div class="info">
-          <h3>Following</h3>
-          <span>120</span>
-        </div>
-        <div class="info">
-          <h3>Followers</h3>
-          <span>5000</span>
-        </div>
-        <div class="info">
-          <h3>Posts</h3>
-          <span>209</span>
-        </div>
+        <div class="info"><h3>Following</h3><span>120</span></div>
+        <div class="info"><h3>Followers</h3><span>5000</span></div>
+        <div class="info"><h3>Posts</h3><span>209</span></div>
       </div>
       <div class="buttons">
         <a href="#" class="btn">Message</a>
@@ -191,78 +218,66 @@
     </div>
   </section>
 
-  <!-- Slider Section -->
-  <section style="padding: 60px 20px; background-color: #f8f9fa;">
-    <h2 style="text-align:center; font-size: 26px; margin-bottom: 30px;">Các mục nổi bật</h2>
+  <!-- SLIDER -->
+  <section class="slider-section">
+    <h2 class="slider-title">Các mục nổi bật</h2>
 
     <div class="slider-container">
-      <button onclick="scrollLeft()" class="slider-btn" style="left: -40px;">←</button>
+      <button onclick="scrollLeft()" class="slider-btn btn-left">←</button>
 
       <div id="slider">
-        <!-- Mục 1 -->
         <div class="slide-card">
-          <img src="https://picsum.photos/id/1015/400/200">
-          <div>
-            <h3>Thiết kế UI</h3>
-            <p>Thiết kế giao diện hiện đại, thân thiện người dùng.</p>
-          </div>
+          <img src="https://picsum.photos/id/1015/400/200" />
+          <div><h3>Thiết kế UI</h3><p>Thiết kế giao diện hiện đại, thân thiện người dùng.</p></div>
         </div>
-
-        <!-- Mục 2 -->
         <div class="slide-card">
-          <img src="https://picsum.photos/id/1018/400/200">
-          <div>
-            <h3>Lập trình Web</h3>
-            <p>Tạo website động bằng HTML, CSS, JS, PHP.</p>
-          </div>
+          <img src="https://picsum.photos/id/1018/400/200" />
+          <div><h3>Lập trình Web</h3><p>Tạo website động bằng HTML, CSS, JS, PHP.</p></div>
         </div>
-
-        <!-- Mục 3 -->
         <div class="slide-card">
-          <img src="https://picsum.photos/id/1020/400/200">
-          <div>
-            <h3>Thiết kế đồ hoạ</h3>
-            <p>Tạo hình ảnh quảng cáo, minh hoạ đẹp mắt.</p>
-          </div>
+          <img src="https://picsum.photos/id/1020/400/200" />
+          <div><h3>Thiết kế đồ hoạ</h3><p>Tạo hình ảnh quảng cáo, minh hoạ đẹp mắt.</p></div>
         </div>
-
-        <!-- Mục 4 -->
         <div class="slide-card">
-          <img src="https://picsum.photos/id/1032/400/200">
-          <div>
-            <h3>Ứng dụng di động</h3>
-            <p>Thiết kế & lập trình app Android/iOS bằng Flutter.</p>
-          </div>
+          <img src="https://picsum.photos/id/1032/400/200" />
+          <div><h3>Ứng dụng di động</h3><p>Thiết kế & lập trình app Android/iOS bằng Flutter.</p></div>
         </div>
-
-        <!-- Mục 5 -->
         <div class="slide-card">
-          <img src="https://picsum.photos/id/1040/400/200">
-          <div>
-            <h3>Marketing số</h3>
-            <p>Chiến lược quảng cáo online, thu hút người dùng hiệu quả.</p>
-          </div>
+          <img src="https://picsum.photos/id/1040/400/200" />
+          <div><h3>Marketing số</h3><p>Chiến lược quảng cáo online, thu hút người dùng hiệu quả.</p></div>
         </div>
       </div>
 
-      <button onclick="scrollRight()" class="slider-btn" style="right: -40px;">→</button>
+      <button onclick="scrollRight()" class="slider-btn btn-right">→</button>
     </div>
   </section>
 
+  <!-- SCRIPT -->
   <script>
+    const slider = document.getElementById("slider");
+    const btnLeft = document.querySelector(".btn-left");
+    const btnRight = document.querySelector(".btn-right");
+    const STEP = 270;
+
     function scrollLeft() {
-      document.getElementById("slider").scrollBy({
-        left: -270,
-        behavior: "smooth"
-      });
+      slider.scrollBy({ left: -STEP, behavior: "smooth" });
+      setTimeout(updateButtons, 300);
     }
 
     function scrollRight() {
-      document.getElementById("slider").scrollBy({
-        left: 270,
-        behavior: "smooth"
-      });
+      slider.scrollBy({ left: STEP, behavior: "smooth" });
+      setTimeout(updateButtons, 300);
     }
+
+    function updateButtons() {
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      btnLeft.style.display = slider.scrollLeft <= 0 ? "none" : "flex";
+      btnRight.style.display = slider.scrollLeft >= maxScroll - 5 ? "none" : "flex";
+    }
+
+    window.addEventListener("load", updateButtons);
+    window.addEventListener("resize", updateButtons);
+    slider.addEventListener("scroll", updateButtons);
   </script>
 
 </body>
