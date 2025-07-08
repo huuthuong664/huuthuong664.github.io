@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Profile Card + Slider</title>
+  <title>Slider 3 ảnh cuộn ngang</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
-
     * {
       margin: 0;
       padding: 0;
@@ -15,111 +13,40 @@
     }
 
     body {
-      background: url("Background.jpg") no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    /* PROFILE CARD */
-    .main {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 60px 0;
-    }
-
-    .profile-card {
-      max-width: 400px;
-      width: 100%;
-      border-radius: 25px;
-      padding: 30px;
-      background: #fff;
-      border: 1px solid #ffffff40;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .image {
-      height: 150px;
-      width: 150px;
-    }
-
-    .profile-pic {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    .data {
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    .data h2 {
-      font-size: 33px;
-      font-weight: 600;
-    }
-
-    .row {
-      display: flex;
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .btn {
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 25px;
-      border-radius: 25px;
-      font-size: 18px;
-      background: linear-gradient(to left, #33ccff 0%, #ff99cc 100%);
-    }
-
-    .btn:hover {
-      box-shadow: inset 0 5px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    /* SLIDER */
-    .slider-section {
       background: #f8f9fa;
+    }
+
+    .slider-section {
       padding: 60px 0;
+      text-align: center;
     }
 
     .slider-title {
-      text-align: center;
       font-size: 26px;
       margin-bottom: 30px;
     }
 
     .slider-outer {
       position: relative;
-      width: 100%;
+      max-width: 840px; /* 3 ảnh mỗi ảnh ~270px */
+      margin: 0 auto;
     }
 
     .slider-wrapper {
-      max-width: 810px;
-      margin: 0 auto;
       overflow: hidden;
+      width: 100%;
     }
 
     #slider {
       display: flex;
       gap: 20px;
       scroll-behavior: smooth;
+      width: max-content; /* Quan trọng để đảm bảo có thể cuộn */
     }
 
     .slide-card {
-      min-width: 250px;
-      background: #fff;
+      min-width: 260px;
+      background: white;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       overflow: hidden;
@@ -127,6 +54,7 @@
 
     .slide-card img {
       width: 100%;
+      height: auto;
       display: block;
     }
 
@@ -150,56 +78,30 @@
       transform: translateY(-50%);
       width: 40px;
       height: 40px;
+      background: white;
       border: none;
       border-radius: 50%;
-      cursor: pointer;
-      background: #fff;
-      font-size: 22px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .btn-left {
+      left: -20px;
+    }
+
+    .btn-right {
+      right: -20px;
     }
 
     .slider-btn:hover {
       background: #eee;
     }
-
-    .btn-left {
-      left: 10px;
-    }
-
-    .btn-right {
-      right: 10px;
-    }
   </style>
 </head>
 <body>
 
-  <!-- PROFILE CARD -->
-  <section class="main">
-    <div class="profile-card">
-      <div class="image">
-        <img src="image.jpg" alt="Profile" class="profile-pic">
-      </div>
-      <div class="data">
-        <h2>Bùi Hữu Thướng</h2>
-        <span>Developer & Designer</span>
-      </div>
-      <div class="row">
-        <div class="info"><h3>Following</h3><span>120</span></div>
-        <div class="info"><h3>Followers</h3><span>5000</span></div>
-        <div class="info"><h3>Posts</h3><span>209</span></div>
-      </div>
-      <div class="buttons">
-        <a href="#" class="btn">Message</a>
-        <a href="#" class="btn">Follow Me</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDER -->
   <section class="slider-section">
     <h2 class="slider-title">Các mục nổi bật</h2>
 
@@ -207,28 +109,33 @@
       <!-- Nút trái -->
       <button onclick="scrollLeft()" class="slider-btn btn-left">←</button>
 
-      <!-- Khung hiển thị -->
+      <!-- Vùng hiển thị slider -->
       <div class="slider-wrapper">
         <div id="slider">
+          <!-- Ảnh 1 -->
           <div class="slide-card">
-            <img src="https://picsum.photos/id/1015/400/200" alt="">
-            <div><h3>Thiết kế UI</h3><p>Thiết kế giao diện hiện đại, thân thiện người dùng.</p></div>
+            <img src="https://picsum.photos/id/1015/400/200" alt="Ảnh 1">
+            <div><h3>Thiết kế UI</h3><p>Giao diện hiện đại, thân thiện người dùng.</p></div>
           </div>
+          <!-- Ảnh 2 -->
           <div class="slide-card">
-            <img src="https://picsum.photos/id/1018/400/200" alt="">
-            <div><h3>Lập trình Web</h3><p>Tạo website động bằng HTML, CSS, JS, PHP.</p></div>
+            <img src="https://picsum.photos/id/1018/400/200" alt="Ảnh 2">
+            <div><h3>Lập trình Web</h3><p>HTML, CSS, JavaScript, PHP,...</p></div>
           </div>
+          <!-- Ảnh 3 -->
           <div class="slide-card">
-            <img src="https://picsum.photos/id/1020/400/200" alt="">
-            <div><h3>Thiết kế đồ hoạ</h3><p>Tạo hình ảnh quảng cáo, minh hoạ đẹp mắt.</p></div>
+            <img src="https://picsum.photos/id/1020/400/200" alt="Ảnh 3">
+            <div><h3>Thiết kế đồ hoạ</h3><p>Poster, banner, video minh họa.</p></div>
           </div>
+          <!-- Ảnh 4 -->
           <div class="slide-card">
-            <img src="https://picsum.photos/id/1032/400/200" alt="">
-            <div><h3>Ứng dụng di động</h3><p>Thiết kế & lập trình app Android/iOS bằng Flutter.</p></div>
+            <img src="https://picsum.photos/id/1032/400/200" alt="Ảnh 4">
+            <div><h3>Ứng dụng di động</h3><p>Flutter, React Native, Android.</p></div>
           </div>
+          <!-- Ảnh 5 -->
           <div class="slide-card">
-            <img src="https://picsum.photos/id/1040/400/200" alt="">
-            <div><h3>Marketing số</h3><p>Chiến lược quảng cáo online, thu hút người dùng hiệu quả.</p></div>
+            <img src="https://picsum.photos/id/1040/400/200" alt="Ảnh 5">
+            <div><h3>Marketing số</h3><p>Chiến dịch quảng cáo hiệu quả.</p></div>
           </div>
         </div>
       </div>
@@ -238,16 +145,22 @@
     </div>
   </section>
 
-  <!-- JS: cuộn 1 ảnh -->
   <script>
-    const STEP = 270; // 250px + 20px gap
+    const STEP = 280; // 260 card + 20 gap
+
     function scrollLeft() {
-      document.getElementById("slider").scrollBy({ left: -STEP, behavior: "smooth" });
+      document.getElementById("slider").scrollBy({
+        left: -STEP,
+        behavior: "smooth"
+      });
     }
+
     function scrollRight() {
-      document.getElementById("slider").scrollBy({ left: STEP, behavior: "smooth" });
+      document.getElementById("slider").scrollBy({
+        left: STEP,
+        behavior: "smooth"
+      });
     }
   </script>
-
 </body>
 </html>
