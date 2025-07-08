@@ -127,7 +127,10 @@
   <section style="padding: 60px 20px; background-color: #f8f9fa;">
     <h2 style="text-align:center; font-size: 26px; margin-bottom: 30px;">Các mục nổi bật</h2>
 
-    <div style="display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px;">
+<div style="position: relative;">
+  <button onclick="scrollLeft()" style="position: absolute; left: 0; top: 40%; z-index: 1;">←</button>
+  <div id="slider" style="display: flex; overflow-x: auto; gap: 20px; scroll-behavior: smooth;">
+
       
       <!-- Mục 1 -->
       <div style="min-width: 250px; background: white; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); overflow: hidden;">
@@ -156,6 +159,23 @@
         </div>
       </div>
     </div>
+<button onclick="scrollRight()" style="position: absolute; right: 0; top: 40%; z-index: 1;">→</button>
+</div>
   </section>
+<script>
+  function scrollLeft() {
+    document.getElementById("slider").scrollBy({
+      left: -300,
+      behavior: "smooth"
+    });
+  }
+
+  function scrollRight() {
+    document.getElementById("slider").scrollBy({
+      left: 300,
+      behavior: "smooth"
+    });
+  }
+</script>
 </body>
 </html> 
