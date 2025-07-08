@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Slider 3 ảnh cuộn ngang</title>
+  <title>Slider 3 ảnh chuyên nghiệp</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+
     * {
       margin: 0;
       padding: 0;
@@ -17,39 +19,42 @@
     }
 
     .slider-section {
-      padding: 60px 0;
+      padding: 60px 20px;
       text-align: center;
     }
 
     .slider-title {
-      font-size: 26px;
-      margin-bottom: 30px;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 40px;
     }
 
     .slider-outer {
       position: relative;
-      max-width: 840px; /* 3 ảnh mỗi ảnh ~270px */
+      max-width: 860px;
       margin: 0 auto;
     }
 
     .slider-wrapper {
       overflow: hidden;
       width: 100%;
+      white-space: nowrap;
     }
 
     #slider {
       display: flex;
       gap: 20px;
       scroll-behavior: smooth;
-      width: max-content; /* Quan trọng để đảm bảo có thể cuộn */
+      transition: all 0.3s ease-in-out;
     }
 
     .slide-card {
-      min-width: 260px;
+      flex: 0 0 260px;
       background: white;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      text-align: left;
     }
 
     .slide-card img {
@@ -81,10 +86,17 @@
       background: white;
       border: none;
       border-radius: 50%;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       font-size: 22px;
       cursor: pointer;
-      z-index: 1;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .slider-btn:hover {
+      background: #eee;
     }
 
     .btn-left {
@@ -95,8 +107,18 @@
       right: -20px;
     }
 
-    .slider-btn:hover {
-      background: #eee;
+    @media (max-width: 860px) {
+      .slider-outer {
+        max-width: 100%;
+      }
+
+      .slide-card {
+        flex: 0 0 80%;
+      }
+
+      .btn-left, .btn-right {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -107,32 +129,32 @@
 
     <div class="slider-outer">
       <!-- Nút trái -->
-      <button onclick="scrollLeft()" class="slider-btn btn-left">←</button>
+      <button onclick="scrollLeft()" class="slider-btn btn-left" id="btnLeft">←</button>
 
-      <!-- Vùng hiển thị slider -->
+      <!-- Slider -->
       <div class="slider-wrapper">
         <div id="slider">
-          <!-- Ảnh 1 -->
+          <!-- Card 1 -->
           <div class="slide-card">
             <img src="https://picsum.photos/id/1015/400/200" alt="Ảnh 1">
             <div><h3>Thiết kế UI</h3><p>Giao diện hiện đại, thân thiện người dùng.</p></div>
           </div>
-          <!-- Ảnh 2 -->
+          <!-- Card 2 -->
           <div class="slide-card">
             <img src="https://picsum.photos/id/1018/400/200" alt="Ảnh 2">
             <div><h3>Lập trình Web</h3><p>HTML, CSS, JavaScript, PHP,...</p></div>
           </div>
-          <!-- Ảnh 3 -->
+          <!-- Card 3 -->
           <div class="slide-card">
             <img src="https://picsum.photos/id/1020/400/200" alt="Ảnh 3">
             <div><h3>Thiết kế đồ hoạ</h3><p>Poster, banner, video minh họa.</p></div>
           </div>
-          <!-- Ảnh 4 -->
+          <!-- Card 4 -->
           <div class="slide-card">
             <img src="https://picsum.photos/id/1032/400/200" alt="Ảnh 4">
             <div><h3>Ứng dụng di động</h3><p>Flutter, React Native, Android.</p></div>
           </div>
-          <!-- Ảnh 5 -->
+          <!-- Card 5 -->
           <div class="slide-card">
             <img src="https://picsum.photos/id/1040/400/200" alt="Ảnh 5">
             <div><h3>Marketing số</h3><p>Chiến dịch quảng cáo hiệu quả.</p></div>
@@ -141,26 +163,35 @@
       </div>
 
       <!-- Nút phải -->
-      <button onclick="scrollRight()" class="slider-btn btn-right">→</button>
+      <button onclick="scrollRight()" class="slider-btn btn-right" id="btnRight">→</button>
     </div>
   </section>
 
   <script>
-    const STEP = 280; // 260 card + 20 gap
+    const slider = document.getElementById("slider");
+    const btnLeft = document.getElementById("btnLeft");
+    const btnRight = document.getElementById("btnRight");
+    const STEP = 280; // 260px card + 20px gap
 
     function scrollLeft() {
-      document.getElementById("slider").scrollBy({
-        left: -STEP,
-        behavior: "smooth"
-      });
+      slider.scrollBy({ left: -STEP, behavior: "smooth" });
+      setTimeout(updateButtons, 400);
     }
 
     function scrollRight() {
-      document.getElementById("slider").scrollBy({
-        left: STEP,
-        behavior: "smooth"
-      });
+      slider.scrollBy({ left: STEP, behavior: "smooth" });
+      setTimeout(updateButtons, 400);
     }
+
+    function updateButtons() {
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      btnLeft.style.display = slider.scrollLeft <= 0 ? "none" : "flex";
+      btnRight.style.display = slider.scrollLeft >= maxScroll ? "none" : "flex";
+    }
+
+    // Khởi động
+    window.addEventListener("load", updateButtons);
+    window.addEventListener("resize", updateButtons);
   </script>
 </body>
 </html>
